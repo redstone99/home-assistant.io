@@ -19,15 +19,21 @@ to remind you of this by sending you repeating notifications at customizable
 intervals. This is also used for low battery sensors,
 water leak sensors, or any condition that may need your attention.
 
-Alerts will add an entity to the front end.
-This entity allows you to silence an alert until it is resolved and has three
-possible states:
+Each alert specifies a condition to monitor and provides a few mechanisms for
+manging the repeating notifications:
+- The default behavior is to send notifications while the condition for the alert is true.
+- An alert can be acknowledged, in which case no further notifications are sent until the next time the alert condition transitions from false to true.
+- Alert notifications can be disabled, in which case no notifications are sent regardless of the condition.
+- Alert notificaitons can be snoozed, in which case no notifications are sent regardless of the condition until a specified future time (at which time the condition is re-evaluated).
+
+Each alert adds an entity to the front-end. This entity allows you to manage the alert. The entity has three possible states:
 
 State | Description
 -|-
 `idle` | The condition for the alert is false.
 `on` | The condition for the alert is true.
 `off` | The condition for the alert is true but it was acknowledged.
+
 
 ### Basic Example
 
@@ -67,7 +73,7 @@ title:
   required: false
   type: template
 state:
-  description: The problem condition for the entity.
+  description: The problem condition for the entity watched.
   required: false
   type: string
   default: on
